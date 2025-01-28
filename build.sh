@@ -110,3 +110,4 @@ make -j $CORE
 (($? != 0)) && { printf '%s\n' "[libbdplus] make failed"; exit 1; }
 make install
 (($? != 0)) && { printf '%s\n' "[libbdplus] make install"; exit 1; }
+exit 0
