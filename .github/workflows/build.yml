@@ -34,7 +34,7 @@ jobs:
           sha1sum ~/win64/* ~/win86/*
       - uses: actions/upload-artifact@v4
         with:
-          name: Static Bianries
+          name: libaacs_libbdplus
           path: |
             ~/win64
             ~/win86
