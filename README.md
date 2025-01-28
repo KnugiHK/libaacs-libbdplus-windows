@@ -19,7 +19,7 @@ The build for this project uses GitHub Actions and cross-compilation with mingw6
 
 ### Local Build
 
-To build Wget for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:
+To build libaacs & libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:
 
 ```bash
 sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc
