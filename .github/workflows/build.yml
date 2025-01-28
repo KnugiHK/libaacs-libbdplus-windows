@@ -31,7 +31,7 @@ jobs:
           cp build-libaacs/install/bin/libbdplus-0.dll ~/win64/libbdplus.dll
           cp build-libaacs-x86/install/bin/libaacs-0.dll ~/win86/libaacs.dll
           cp build-libaacs-x86/install/bin/libbdplus-0.dll ~/win86/libbdplus.dll
-          sha1sum ~/win64/* ~/win86
+          sha1sum ~/win64/* ~/win86/*
       - uses: actions/upload-artifact@v4
         with:
           name: Static Bianries
