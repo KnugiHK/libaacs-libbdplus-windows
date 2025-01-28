@@ -30,7 +30,7 @@ cd wget-windows
 ./build.sh
 ```
 
-### Notes
+### Credit
 
 This project is inspired by [wget-windows](https://github.com/KnugiHK/wget-windows), originally created by @webfolderio.
 
