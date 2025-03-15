@@ -27,6 +27,12 @@ git clone https://github.com/KnugiHK/libaacs-libbdplus-windows && cd libaacs-lib
 make
 ```
 
+To build 32-bit or 64-bit only:
+```bash
+make 32
+make 64
+```
+
 ### Credit
 
 This project is inspired by [wget-windows](https://github.com/KnugiHK/wget-windows), originally created by @webfolderio.
