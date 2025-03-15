@@ -22,12 +22,9 @@ The build for this project uses GitHub Actions and cross-compilation with mingw6
 To build libaacs & libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:
 
 ```bash
-sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc
-sudo apt-get install -y make m4 pkg-config gettext
-cd /tmp
-git clone https://github.com/webfolderio/wget-windows.git
-cd wget-windows
-./build.sh
+sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext
+git clone https://github.com/KnugiHK/libaacs-libbdplus-windows && cd libaacs-libbdplus-windows
+make
 ```
 
 ### Credit
