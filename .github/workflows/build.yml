@@ -3,11 +3,6 @@ name: libaacs & libbdplus
 on:
   create:
     tags:
-      - v*name: libaacs & libbdplus
-
-on:
-  create:
-    tags:
       - v*
   workflow_dispatch:
 
