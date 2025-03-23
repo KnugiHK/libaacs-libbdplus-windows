@@ -17,7 +17,7 @@ Unlike the libraries hosted on Mega.nz, all required dependencies have been **st
 
 The build for this project uses GitHub Actions and cross-compilation with mingw64 on Ubuntu, leveraging GNU/gcc. It's safe to use and free from viruses, though you’re encouraged to review the process and repository for full transparency.
 
-### Local Build
+## Build Locally
 
 To build libaacs & libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:
 
@@ -33,7 +33,9 @@ make 32
 make 64
 ```
 
-### Credit
+If the `Makefile` does not work for you, try to use the `build.sh` script instead.
+
+## Credit
 
 This project is inspired by [wget-windows](https://github.com/KnugiHK/wget-windows), originally created by @webfolderio.
 
