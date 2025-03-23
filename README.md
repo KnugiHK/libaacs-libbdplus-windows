@@ -35,6 +35,14 @@ make 64
 
 If the `Makefile` does not work for you, try to use the `build.sh` script instead.
 
+## Installer
+
+The installer is built using NSIS. To build the installer, place the DLLs to the `win86` and `win64` directories accordingly and invoke the following command:
+
+```bash
+makensis installer.nsi
+```
+
 ## Credit
 
 This project is inspired by [wget-windows](https://github.com/KnugiHK/wget-windows), originally created by @webfolderio.
