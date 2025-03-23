@@ -15,7 +15,7 @@ jobs:
         name: Checkout project
       - name: Install prerequisites
         run: |
-          sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make pkg-config fig2dev gettext make
+          sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make pkg-config fig2dev gettext make nsis
       - name: Build libaacs & libbdplus
         run: |
           x86_64-w64-mingw32-gcc --version
@@ -23,15 +23,21 @@ jobs:
           make
       - name: Packing
         run: |
-          mkdir ~/win64 ~/win86
+          mkdir ./win64 ./win86
           cp build-libaacs/install/bin/libaacs-0.dll ~/win64/libaacs.dll
           cp build-libaacs/install/bin/libbdplus-0.dll ~/win64/libbdplus.dll
           cp build-libaacs-x86/install/bin/libaacs-0.dll ~/win86/libaacs.dll
           cp build-libaacs-x86/install/bin/libbdplus-0.dll ~/win86/libbdplus.dll
-          sha1sum ~/win64/* ~/win86/*
+          sha1sum ./win64/* ./win86/*
       - uses: actions/upload-artifact@v4
         with:
           name: libaacs_libbdplus
           path: |
-            ~/win64
-            ~/win86
+            ./win64
+            ./win86
+      - name: Make Installer
+        run: makensis installer.nsi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: ./libaacs-bdplus.exe
