@@ -1,5 +1,5 @@
 #
-# wget build script for Windows environment
+# libaacs-libbdplus build script for Windows environment
 # Author: KnugiHK
 # January 28, 2025
 #
