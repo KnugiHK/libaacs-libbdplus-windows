@@ -1,23 +1,24 @@
 # Windows Libraries of libaacs & libbdplus
 
-The libraries available for download here are essential for playing Blu-ray discs with FFmpeg, VLC, and MPC-HC.
+This repository provides pre-built libraries for **libaacs** and **libbdplus**, essential components for playing Blu-ray discs with popular software like FFmpeg, VLC, and MPC-HC.
 
-* libaacs: https://www.videolan.org/developers/libaacs.html
-* libbdplus: https://www.videolan.org/developers/libbdplus.html
+* **libaacs**: https://www.videolan.org/developers/libaacs.html
+* **libbdplus**: https://www.videolan.org/developers/libbdplus.html
+
+This repository’s purpose is to offer a transparent building process and clean binaries for consumption (i.e., no need to download the libraries from the Mega.nz link in the forum post). The build for this project uses GitHub Actions and cross-compilation with mingw64 on Ubuntu, leveraging GNU/gcc. It's safe to use and free from viruses, though you’re encouraged to review the process and repository for full transparency.
 
 ## How to use libaacs & libbdplus
 
+Once downloaded, you’ll find both 64-bit and 32-bit Windows versions of the libraries. Follow these steps to get started:
+
+1. **Download the libraries** from the [Releases](https://github.com/KnugiHK/libaacs-libbdplus-windows/releases) page.
+2. **Place the DLL files** (`libaacs.dll` and `libbdplus.dll`) into `C:\Windows\System32`. This will make them accessible to all your applications.
+
+Unlike the libraries provided in external sources (like Mega.nz), these libraries have **all dependencies statically linked**, so you won't need any additional DLLs (like `libgpg-error6-0.dll` or `libgcrypt-20.dll`).
+
 For detailed instruction, refer to [this forum post](https://forum.doom9.org/showthread.php?p=1886086) from Doom9.
 
-This repository’s purpose is to offer a transparent building process and clean binaries for consumption (i.e., no need to download the libraries from the Mega.nz link in the forum post).
-
-You can find the libraries on the Release page, which includes both 64-bit and 32-bit Windows versions — choose accordingly. Once downloaded, place the library files (`libaacs.dll` and `libbdplus.dll`) into `C:\Windows\System32` to make them accessible to all applications.
-
-Unlike the libraries hosted on Mega.nz, all required dependencies have been **statically linked**, so no additional third-party DLLs (i.e., `libgpg-error6-0.dll`, and `libgcrypt-20.dll`) are needed.
-
-The build for this project uses GitHub Actions and cross-compilation with mingw64 on Ubuntu, leveraging GNU/gcc. It's safe to use and free from viruses, though you’re encouraged to review the process and repository for full transparency.
-
-## Build Locally
+## Building libaacs & libbdplus Locally
 
 To build libaacs & libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:
 
@@ -35,9 +36,9 @@ make 64
 
 If the `Makefile` does not work for you, try to use the `build.sh` script instead.
 
-## Installer
+## Building the Installer
 
-The installer is built using NSIS. To build the installer, place the DLLs to the `win86` and `win64` directories accordingly and invoke the following command:
+The installer is built using NSIS. To build the installer, place the DLLs to the `win86` and `win64` directories accordingly and run the following command:
 
 ```bash
 makensis installer.nsi
