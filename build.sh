@@ -38,9 +38,9 @@ done
 # build gpg-error
 # -----------------------------------------------------------------------------
 if [ ! -f "$INSTALL_PATH"/lib/libgpg-error.a ]; then
-  wget -nc https://github.com/gpg/libgpg-error/archive/refs/tags/libgpg-error-1.51.tar.gz
-  tar -xf libgpg-error-1.51.tar.gz
-  cd libgpg-error-libgpg-error-1.51 || exit
+  wget -nc https://github.com/gpg/libgpg-error/archive/refs/tags/libgpg-error-1.56.tar.gz
+  tar -xf libgpg-error-1.56.tar.gz
+  cd libgpg-error-libgpg-error-1.56 || exit
   ./autogen.sh
   ./configure \
   --host=$LIBAACS_MINGW_HOST \
@@ -59,9 +59,9 @@ fi
 # build gcrypt
 # -----------------------------------------------------------------------------
 if [ ! -f "$INSTALL_PATH"/lib/libgcrypt.a ]; then
-  wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.0.tar.gz
-  tar -xf libgcrypt-1.11.0.tar.gz
-  cd libgcrypt-libgcrypt-1.11.0 || exit
+  wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.2.tar.gz
+  tar -xf libgcrypt-1.11.2.tar.gz
+  cd libgcrypt-libgcrypt-1.11.2 || exit
   ./autogen.sh
   ./configure \
    --host=$LIBAACS_MINGW_HOST \

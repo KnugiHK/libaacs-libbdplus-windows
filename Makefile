@@ -48,9 +48,9 @@ clean:
 gpg-error:
 	@echo "Building libgpg-error..."
 	@if [ ! -f "$(INSTALL_PATH)/lib/libgpg-error.a" ]; then \
-		wget -nc https://github.com/gpg/libgpg-error/archive/refs/tags/libgpg-error-1.51.tar.gz && \
-		tar -xf libgpg-error-1.51.tar.gz && \
-		cd libgpg-error-libgpg-error-1.51 && \
+		wget -nc https://github.com/gpg/libgpg-error/archive/refs/tags/libgpg-error-1.56.tar.gz && \
+		tar -xf libgpg-error-1.56.tar.gz && \
+		cd libgpg-error-libgpg-error-1.56 && \
 		./autogen.sh && \
 		./configure \
 			--host=$(LIBAACS_MINGW_HOST) \
@@ -65,9 +65,9 @@ gpg-error:
 gcrypt: gpg-error
 	@echo "Building libgcrypt..."
 	@if [ ! -f "$(INSTALL_PATH)/lib/libgcrypt.a" ]; then \
-		wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.0.tar.gz && \
-		tar -xf libgcrypt-1.11.0.tar.gz && \
-		cd libgcrypt-libgcrypt-1.11.0 && \
+		wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.2.tar.gz && \
+		tar -xf libgcrypt-1.11.2.tar.gz && \
+		cd libgcrypt-libgcrypt-1.11.2 && \
 		./autogen.sh && \
 		./configure \
 			--host=$(LIBAACS_MINGW_HOST) \
