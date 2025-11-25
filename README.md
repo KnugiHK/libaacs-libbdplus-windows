@@ -23,7 +23,7 @@ For detailed instruction, refer to [this forum post](https://forum.doom9.org/sho
 To build libaacs & libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:
 
 ```bash
-sudo apt-get install -y autoconf fig2dev mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext
+sudo apt-get install -y autoconf fig2dev mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext lbzip2 flex bison
 git clone https://github.com/KnugiHK/libaacs-libbdplus-windows && cd libaacs-libbdplus-windows
 make
 ```
