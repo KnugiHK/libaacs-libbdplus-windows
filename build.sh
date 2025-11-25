@@ -59,9 +59,9 @@ fi
 # build gcrypt
 # -----------------------------------------------------------------------------
 if [ ! -f "$INSTALL_PATH"/lib/libgcrypt.a ]; then
-  wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.2.tar.gz
-  tar -xf libgcrypt-1.11.2.tar.gz
-  cd libgcrypt-libgcrypt-1.11.2 || exit
+  wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.0.tar.gz
+  tar -xf libgcrypt-1.11.0.tar.gz
+  cd libgcrypt-libgcrypt-1.11.0 || exit
   ./autogen.sh
   ./configure \
    --host=$LIBAACS_MINGW_HOST \
