@@ -59,9 +59,9 @@ fi
 # build gcrypt
 # -----------------------------------------------------------------------------
 if [ ! -f "$INSTALL_PATH"/lib/libgcrypt.a ]; then
-  wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.0.tar.gz
-  tar -xf libgcrypt-1.11.0.tar.gz
-  cd libgcrypt-libgcrypt-1.11.0 || exit
+  wget -nc https://github.com/gpg/libgcrypt/archive/refs/tags/libgcrypt-1.11.2.tar.gz
+  tar -xf libgcrypt-1.11.2.tar.gz
+  cd libgcrypt-libgcrypt-1.11.2 || exit
   ./autogen.sh
   ./configure \
    --host=$LIBAACS_MINGW_HOST \
@@ -83,6 +83,7 @@ wget -nc https://download.videolan.org/pub/videolan/libaacs/0.11.1/libaacs-0.11.
 tar xf libaacs-0.11.1.tar.bz2
 cd libaacs-0.11.1 || exit
 LIBS="-L$INSTALL_PATH/lib -lws2_32" \
+LDFLAGS="-static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic" \
 ./configure \
   --host=$LIBAACS_MINGW_HOST \
   --prefix="$INSTALL_PATH" \
@@ -101,6 +102,7 @@ wget -nc https://download.videolan.org/pub/videolan/libbdplus/0.2.0/libbdplus-0.
 tar xf libbdplus-0.2.0.tar.bz2
 cd libbdplus-0.2.0 || exit
 LIBS="-L$INSTALL_PATH/lib -lws2_32" \
+LDFLAGS="-static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic" \
 ./configure \
   --host=$LIBAACS_MINGW_HOST \
   --prefix="$INSTALL_PATH" \
