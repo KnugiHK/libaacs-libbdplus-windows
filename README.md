@@ -5,7 +5,7 @@ This repository provides pre-built libraries for **libaacs** and **libbdplus**, 
 * **libaacs**: https://www.videolan.org/developers/libaacs.html
 * **libbdplus**: https://www.videolan.org/developers/libbdplus.html
 
-This repository is designed to provide a transparent build process and clean, ready-to-use binaries, no need to rely on the Mega.nz link shared on the Internet. The build process uses GitHub Actions and cross-compilation with mingw64 on Ubuntu, utilizing GNU/gcc. The binaries are safe to use and virus-free, but we encourage you to review the build process and repository for full transparency.
+This repository provides an automated build process and ready-to-use binaries as a transparent alternative to manual uploads shared online. To supplement existing community resources, we use GitHub Actions and cross-compilation with mingw64 on Ubuntu to offer a verifiable path from source to executable. This 'clean-room' compilation ensures a consistent, auditable result, and we encourage users to review the build scripts for full transparency.
 
 ## How to use libaacs & libbdplus
 
