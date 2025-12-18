@@ -48,9 +48,9 @@ clean:
 gpg-error:
 	@echo "Building libgpg-error..."
 	@if [ ! -f "$(INSTALL_PATH)/lib/libgpg-error.a" ]; then \
-		wget -nc https://github.com/gpg/libgpg-error/archive/refs/tags/libgpg-error-1.56.tar.gz && \
-		tar -xf libgpg-error-1.56.tar.gz && \
-		cd libgpg-error-libgpg-error-1.56 && \
+		wget -nc https://github.com/gpg/libgpg-error/archive/refs/tags/libgpg-error-1.58.tar.gz && \
+		tar -xf libgpg-error-1.58.tar.gz && \
+		cd libgpg-error-libgpg-error-1.58 && \
 		./autogen.sh && \
 		./configure \
 			--host=$(LIBAACS_MINGW_HOST) \
