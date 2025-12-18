@@ -11,7 +11,7 @@ jobs:
     name: Build the Libraries
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         name: Checkout project
       - name: Install prerequisites
         run: |
@@ -31,7 +31,7 @@ jobs:
           cp build-libaacs-x86/install/bin/libbdplus-0.dll ./win86/libbdplus.dll
           cp build-libaacs-x86/install/bin/aacs_info.exe ./win86/aacs_info.exe
           sha1sum ./win64/* ./win86/*
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: libaacs_libbdplus
           path: |
@@ -39,7 +39,7 @@ jobs:
             ./win86
       - name: Make Installer
         run: makensis installer.nsi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: installer
           path: ./libaacs-bdplus.exe
