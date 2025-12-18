@@ -7,12 +7,18 @@ This repository provides pre-built libraries for **libaacs** and **libbdplus**, 
 
 This repository provides an automated build process and ready-to-use binaries as a transparent alternative to manual uploads shared online. To supplement existing community resources, we use GitHub Actions and cross-compilation with mingw64 on Ubuntu to offer a verifiable path from source to executable. This 'clean-room' compilation ensures a consistent, auditable result, and we encourage users to review the build scripts for full transparency.
 
-## How to use libaacs & libbdplus
+## How to Use libaacs & libbdplus
 
-Once downloaded, you’ll find both 64-bit and 32-bit Windows versions of the libraries. Follow these steps to get started:
+### Using Installer
+
+Simply download, run, select your architecture, and install, you'll be up and running in seconds.
+
+### Manual
+
+Once downloaded, you'll find both 64-bit and 32-bit Windows versions of the libraries. Follow these steps to get started:
 
 1. **Download the libraries** from the [Releases](https://github.com/KnugiHK/libaacs-libbdplus-windows/releases) page.
-2. **Place the DLL files** (`libaacs.dll` and `libbdplus.dll`) into `C:\Windows\System32`. This will make them accessible to all your applications.
+2. **Place the DLL files** (`libaacs.dll` and `libbdplus.dll`) into `C:\Windows\System32` or `C:\Windows\SysWOW64`. This will make them accessible to all your applications.
 
 Unlike the libraries provided in external sources (like Mega.nz), these libraries have **all dependencies statically linked**, so you won't need any additional DLLs (like `libgpg-error6-0.dll` or `libgcrypt-20.dll`).
 
