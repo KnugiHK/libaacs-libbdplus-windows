@@ -26,8 +26,10 @@ jobs:
           mkdir ./win64 ./win86
           cp build-libaacs/install/bin/libaacs-0.dll ./win64/libaacs.dll
           cp build-libaacs/install/bin/libbdplus-0.dll ./win64/libbdplus.dll
+          cp build-libaacs/install/bin/aacs_info.exe ./win64/aacs_info.exe
           cp build-libaacs-x86/install/bin/libaacs-0.dll ./win86/libaacs.dll
           cp build-libaacs-x86/install/bin/libbdplus-0.dll ./win86/libbdplus.dll
+          cp build-libaacs-x86/install/bin/aacs_info.exe ./win86/aacs_info.exe
           sha1sum ./win64/* ./win86/*
       - uses: actions/upload-artifact@v4
         with:
