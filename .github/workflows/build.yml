@@ -43,3 +43,13 @@ jobs:
         with:
           name: installer
           path: ./libaacs-bdplus.exe
+      - name: Build Debug & Testing
+        run: |
+            x86_64-w64-mingw32-gcc dll_loader.c -o dll_loader_x64.exe
+            i686-w64-mingw32-gcc dll_loader.c -o dll_loader_x86.exe
+      - uses: actions/upload-artifact@v6
+        with:
+          name: testing_utility
+          path: |
+            ./dll_loader_x64.exe
+            ./dll_loader_x86.exe
