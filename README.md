@@ -50,6 +50,24 @@ The installer is built using NSIS. To build the installer, place the DLLs to the
 makensis installer.nsi
 ```
 
+## Testing
+
+This repository includes a testing utility, `dll_loader.c`. To use it, compile the source using `x86_64-w64-mingw32-gcc` (for 64-bit) or `i686-w64-mingw32-gcc` (for 32-bit). Once built, run the executable on Windows, ensuring the library files are organized in the following directory structure:
+
+```bash
+.
+├── dll_loader_x64.exe
+├── dll_loader_x86.exe
+├── win64
+│   ├── aacs_info.exe
+│   ├── libaacs.dll
+│   └── libbdplus.dll
+└── win86
+    ├── aacs_info.exe
+    ├── libaacs.dll
+    └── libbdplus.dll
+```
+
 ## Credit
 
 This project is inspired by [wget-windows](https://github.com/KnugiHK/wget-windows), originally created by @webfolderio.
