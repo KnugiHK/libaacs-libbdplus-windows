@@ -90,11 +90,11 @@ LDFLAGS="-static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynami
   --with-gpg-error-prefix="$INSTALL_PATH" \
   --with-libgcrypt-prefix="$INSTALL_PATH"
 (($? != 0)) && { printf '%s\n' "[libaacs] configure failed"; exit 1; }
-make -j $CORE
+make -j $CORE libaacs_la_LDFLAGS="-no-undefined -avoid-version"
 (($? != 0)) && { printf '%s\n' "[libaacs] make failed"; exit 1; }
 make install
 (($? != 0)) && { printf '%s\n' "[libaacs] make install"; exit 1; }
-$MINGW_STRIP_TOOL "$INSTALL_PATH/bin/libaacs-0.dll"
+$MINGW_STRIP_TOOL "$INSTALL_PATH/bin/libaacs.dll"
 # -----------------------------------------------------------------------------
 # build libbdplus
 # -----------------------------------------------------------------------------
@@ -109,9 +109,9 @@ LDFLAGS="-static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynami
   --with-gpg-error-prefix="$INSTALL_PATH" \
   --with-libgcrypt-prefix="$INSTALL_PATH"
 (($? != 0)) && { printf '%s\n' "[libbdplus] configure failed"; exit 1; }
-make -j $CORE
+make -j $CORE libbdplus_la_LDFLAGS="-no-undefined -avoid-version"
 (($? != 0)) && { printf '%s\n' "[libbdplus] make failed"; exit 1; }
 make install
 (($? != 0)) && { printf '%s\n' "[libbdplus] make install"; exit 1; }
-$MINGW_STRIP_TOOL "$INSTALL_PATH/bin/libbdplus-0.dll"
+$MINGW_STRIP_TOOL "$INSTALL_PATH/bin/libbdplus.dll"
 exit 0
