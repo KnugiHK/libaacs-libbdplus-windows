@@ -15,6 +15,7 @@ jobs:
         name: Checkout project
       - name: Install prerequisites
         run: |
+          sudo apt-get update
           sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make pkg-config fig2dev gettext lbzip2 flex bison nsis
       - name: Build libaacs & libbdplus
         run: |
@@ -49,7 +50,47 @@ jobs:
             i686-w64-mingw32-gcc dll_loader.c -o dll_loader_x86.exe
       - uses: actions/upload-artifact@v6
         with:
-          name: testing_utility
+          name: testing_utilities
           path: |
             ./dll_loader_x64.exe
             ./dll_loader_x86.exe
+
+  test:
+    name: Test Binaries on Windows
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - name: Download Binaries
+        uses: actions/download-artifact@v6
+        with:
+          name: libaacs_libbdplus
+          path: ./binaries
+
+      - name: Download Utilities
+        uses: actions/download-artifact@v6
+        with:
+          name: testing_utilities
+          path: ./utils
+
+      - name: Setup Test Environment
+        run: |
+          # Copying the loaders into the respective architecture folders
+          copy .\utils\dll_loader_x64.exe .\binaries\dll_loader_x64.exe
+          copy .\utils\dll_loader_x86.exe .\binaries\dll_loader_x86.exe
+          ls -R .\binaries
+
+      - name: Test Win64 (x64)
+        working-directory: ./binaries/
+        run: |
+          echo "Running aacs_info.exe..."
+          .\win64\aacs_info.exe
+          echo "Running DLL Loader..."
+          .\dll_loader_x64.exe
+
+      - name: Test Win86 (x86)
+        working-directory: ./binaries/
+        run: |
+          echo "Running aacs_info.exe..."
+          .\win86\aacs_info.exe
+          echo "Running DLL Loader..."
+          .\dll_loader_x86.exe
