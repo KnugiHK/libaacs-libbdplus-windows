@@ -68,6 +68,28 @@ This repository includes a testing utility, `dll_loader.c`. To use it, compile t
     └── libbdplus.dll
 ```
 
+## Verifying Build Integrity
+
+To ensure that the binaries provided in the releases were built directly from this source code via GitHub Actions and have not been tampered with, GitHub Artifact Attestations is used. You can verify the authenticity of any `.exe` or `.dll` file using the GitHub CLI.
+
+### Using Bash (Linux/WSL/macOS)
+
+```bash
+for file in *.exe ./win64/* ./win86/*; do
+  gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows
+done
+```
+
+### Using PowerShell (Windows)
+
+```powershell
+$files = Get-ChildItem -Path "*.exe", "./win64/*", "./win86/*"
+
+foreach ($file in $files) {
+    gh attestation verify "$($file.FullName)" -R KnugiHK/libaacs-libbdplus-windows
+}
+```
+
 ## Credit
 
 This project is inspired by [wget-windows](https://github.com/KnugiHK/wget-windows), originally created by @webfolderio.
