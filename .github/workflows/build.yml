@@ -6,6 +6,11 @@ on:
       - v*
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+  attestations: write
+
 jobs:
   build:
     name: Build the Libraries
@@ -32,14 +37,23 @@ jobs:
           cp build-libaacs-x86/install/bin/libbdplus.dll ./win86/libbdplus.dll
           cp build-libaacs-x86/install/bin/aacs_info.exe ./win86/aacs_info.exe
           sha1sum ./win64/* ./win86/*
+      - name: Make Installer
+        run: makensis installer.nsi
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: |
+            ./win64/*.dll
+            ./win64/*.exe
+            ./win86/*.dll
+            ./win86/*.exe
+            ./libaacs-bdplus.exe
       - uses: actions/upload-artifact@v6
         with:
           name: libaacs_libbdplus
           path: |
             ./win64
             ./win86
-      - name: Make Installer
-        run: makensis installer.nsi
       - uses: actions/upload-artifact@v6
         with:
           name: installer
@@ -74,7 +88,6 @@ jobs:
 
       - name: Setup Test Environment
         run: |
-          # Copying the loaders into the respective architecture folders
           copy .\utils\dll_loader_x64.exe .\binaries\dll_loader_x64.exe
           copy .\utils\dll_loader_x86.exe .\binaries\dll_loader_x86.exe
           ls -R .\binaries
