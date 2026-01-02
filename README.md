@@ -75,19 +75,13 @@ To ensure that the binaries provided in the releases were built directly from th
 ### Using Bash (Linux/WSL/macOS)
 
 ```bash
-for file in *.exe ./win64/* ./win86/*; do
-  gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows
-done
+for file in *.exe ./win64/* ./win86/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
 ```
 
 ### Using PowerShell (Windows)
 
 ```powershell
-$files = Get-ChildItem -Path "*.exe", "./win64/*", "./win86/*"
-
-foreach ($file in $files) {
-    gh attestation verify "$($file.FullName)" -R KnugiHK/libaacs-libbdplus-windows
-}
+gci "*.exe", "./win64/*", "./win86/*" | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
 ```
 
 ## Credit
