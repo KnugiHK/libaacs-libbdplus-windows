@@ -72,16 +72,16 @@ This repository includes a testing utility, `dll_loader.c`. To use it, compile t
 
 To ensure that the binaries provided in the releases were built directly from this source code via GitHub Actions and have not been tampered with, GitHub Artifact Attestations is used. You can verify the authenticity of any `.exe` or `.dll` file using the GitHub CLI.
 
-### Using Bash (Linux/WSL/macOS)
-
-```bash
-for file in *.exe ./win64/* ./win86/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
-```
-
 ### Using PowerShell (Windows)
 
 ```powershell
 gci "*.exe", "./win64/*", "./win86/*" | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
+```
+
+### Using Bash (Linux/WSL/macOS)
+
+```bash
+for file in *.exe ./win64/* ./win86/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
 ```
 
 ## Credit
