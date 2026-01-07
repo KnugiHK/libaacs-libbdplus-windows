@@ -58,7 +58,7 @@ gpg-error:
 			--prefix="$(INSTALL_PATH)" \
 			--enable-static \
 			--disable-doc && \
-		make -j $(CORE) && \
+		make && \
 		make install || exit 1; \
 	fi
 
@@ -75,7 +75,7 @@ gcrypt: gpg-error
 			--prefix="$(INSTALL_PATH)" \
 			--disable-doc \
 			--with-gpg-error-prefix="$(INSTALL_PATH)" && \
-		make -j $(CORE) && \
+		make && \
 		make install || exit 1; \
 	fi
 
@@ -91,7 +91,7 @@ libaacs: gcrypt
 		--prefix="$(INSTALL_PATH)" \
 		--with-gpg-error-prefix="$(INSTALL_PATH)" \
 		--with-libgcrypt-prefix="$(INSTALL_PATH)" && \
-	make -j $(CORE) libaacs_la_LDFLAGS="-no-undefined -avoid-version" && \
+	make libaacs_la_LDFLAGS="-no-undefined -avoid-version" && \
 	make install && \
 	$(MINGW_STRIP_TOOL) "$(INSTALL_PATH)/bin/libaacs.dll" || exit 1
 
@@ -107,6 +107,6 @@ libbdplus: gcrypt
 		--prefix="$(INSTALL_PATH)" \
 		--with-gpg-error-prefix="$(INSTALL_PATH)" \
 		--with-libgcrypt-prefix="$(INSTALL_PATH)" && \
-	make -j $(CORE) libbdplus_la_LDFLAGS="-no-undefined -avoid-version" && \
+	make libbdplus_la_LDFLAGS="-no-undefined -avoid-version" && \
 	make install && \
 	$(MINGW_STRIP_TOOL) "$(INSTALL_PATH)/bin/libbdplus.dll" || exit 1
