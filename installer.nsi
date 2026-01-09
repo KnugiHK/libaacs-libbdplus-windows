@@ -7,11 +7,12 @@ RequestExecutionLevel admin
 ; Variables
 Var BITNESS
 
-; Pages
+; Includes
 !include "MUI2.nsh"
 !include "LogicLib.nsh" ; Required for {If} statements
+!include "x64.nsh" ; Required for architecture detection
 
-!define MUI_PAGE_CUSTOMFUNCTION_LEAVE ComponentsLeave
+; Pages
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
@@ -40,36 +41,34 @@ SectionEnd
 
 ; Functions
 Function .onInit
-  ; Set default to 64-bit
-  StrCpy $BITNESS "64"
-  
+  ; Unselect everything
   SectionSetFlags ${SEC_32BIT} 0
-  SectionSetFlags ${SEC_64BIT} ${SF_SELECTED}
+  SectionSetFlags ${SEC_64BIT} 0
   SectionSetFlags ${SEC_ARM64} 0
-FunctionEnd
 
-Function ComponentsLeave
-  ; Get selection states
-  SectionGetFlags ${SEC_32BIT} $0
-  SectionGetFlags ${SEC_64BIT} $1
-  SectionGetFlags ${SEC_ARM64} $2
-  
-  ; Mask the selection bit
-  IntOp $0 $0 & ${SF_SELECTED}
-  IntOp $1 $1 & ${SF_SELECTED}
-  IntOp $2 $2 & ${SF_SELECTED}
-  
-  ; Calculate how many sections are selected
-  IntOp $3 $0 + $1
-  IntOp $3 $3 + $2
+  ; Detect Architecture
+  ${If} ${IsNativeARM64}
+    StrCpy $BITNESS "ARM64"
+    SectionSetFlags ${SEC_ARM64} ${SF_SELECTED}
+    ; Disable other sections because only ARM64 can run on this CPU
+    IntOp $0 ${SF_SELECTED} | ${SF_RO}
+    SectionSetFlags ${SEC_ARM64} $0 
+    SectionSetFlags ${SEC_32BIT} ${SF_RO}
+    SectionSetFlags ${SEC_64BIT} ${SF_RO}
 
-  ; Validation: Ensure exactly one is selected
-  ${If} $3 == 0
-    MessageBox MB_OK|MB_ICONEXCLAMATION "Please select one version to install!"
-    Abort
-  ${ElseIf} $3 > 1
-    MessageBox MB_OK|MB_ICONEXCLAMATION "Please select only one architecture (32-bit, 64-bit, or ARM64)!"
-    Abort
+  ${ElseIf} ${IsNativeAMD64}
+    StrCpy $BITNESS "64"
+    ; On x64 systems, select 64-bit by default but keep both 32/64 unlocked
+    SectionSetFlags ${SEC_64BIT} ${SF_SELECTED}
+    SectionSetFlags ${SEC_32BIT} 0
+    ; Lock ARM64 because it won't run on this CPU
+    SectionSetFlags ${SEC_ARM64} ${SF_RO}
+  ${Else}
+    StrCpy $BITNESS "32"
+    ; On 32-bit only systems, select 32-bit and lock 64-bit options
+    SectionSetFlags ${SEC_32BIT} ${SF_SELECTED}
+    SectionSetFlags ${SEC_64BIT} ${SF_RO}
+    SectionSetFlags ${SEC_ARM64} ${SF_RO}
   ${EndIf}
 FunctionEnd
 
