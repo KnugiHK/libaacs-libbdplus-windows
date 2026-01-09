@@ -1,7 +1,7 @@
 ; Installer properties
 !define /date VERSION "%Y%m%d"
 Name "libaacs & libbdplus Installer"
-OutFile "libaacs-libbdplus-windows-installer.exe"
+OutFile "libaacs-libbdplus-installer.exe"
 InstallDir "$PROGRAMFILES\libaacs-libbdplus-windows" ; Recommended: Install uninstaller to a folder
 RequestExecutionLevel admin
 

@@ -57,7 +57,7 @@ jobs:
             ./win86/*.exe
             ./winarm64/*.dll
             ./winarm64/*.exe
-            ./libaacs-bdplus.exe
+            ./libaacs-libbdplus-installer.exe
       - uses: actions/upload-artifact@v6
         with:
           name: libaacs_libbdplus
@@ -68,7 +68,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         with:
           name: installer
-          path: ./libaacs-bdplus.exe
+          path: ./libaacs-libbdplus-installer.exe
       - name: Build Debug & Testing
         run: |
             x86_64-w64-mingw32-gcc dll_loader.c -o dll_loader_x64.exe
