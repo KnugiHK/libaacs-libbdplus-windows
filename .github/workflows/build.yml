@@ -27,16 +27,20 @@ jobs:
           x86_64-w64-mingw32-gcc --version
           i686-w64-mingw32-gcc --version
           make
+          make arm64
       - name: Packing
         run: |
-          mkdir ./win64 ./win86
+          mkdir ./win64 ./win86 ./winarm64
           cp build-libaacs/install/bin/libaacs.dll ./win64/libaacs.dll
           cp build-libaacs/install/bin/libbdplus.dll ./win64/libbdplus.dll
           cp build-libaacs/install/bin/aacs_info.exe ./win64/aacs_info.exe
           cp build-libaacs-x86/install/bin/libaacs.dll ./win86/libaacs.dll
           cp build-libaacs-x86/install/bin/libbdplus.dll ./win86/libbdplus.dll
           cp build-libaacs-x86/install/bin/aacs_info.exe ./win86/aacs_info.exe
-          sha1sum ./win64/* ./win86/*
+          cp build-libaacs-arm64/install/bin/libaacs.dll ./winarm64/libaacs.dll
+          cp build-libaacs-arm64/install/bin/libbdplus.dll ./winarm64/libbdplus.dll
+          cp build-libaacs-arm64/install/bin/aacs_info.exe ./winarm64/aacs_info.exe
+          sha1sum ./win64/* ./win86/* ./winarm64/*
       - name: Make Installer
         run: makensis installer.nsi
       - name: Generate artifact attestation
@@ -47,6 +51,8 @@ jobs:
             ./win64/*.exe
             ./win86/*.dll
             ./win86/*.exe
+            ./winarm64/*.dll
+            ./winarm64/*.exe
             ./libaacs-bdplus.exe
       - uses: actions/upload-artifact@v6
         with:
@@ -54,6 +60,7 @@ jobs:
           path: |
             ./win64
             ./win86
+            ./winarm64
       - uses: actions/upload-artifact@v6
         with:
           name: installer
@@ -62,15 +69,18 @@ jobs:
         run: |
             x86_64-w64-mingw32-gcc dll_loader.c -o dll_loader_x64.exe
             i686-w64-mingw32-gcc dll_loader.c -o dll_loader_x86.exe
+            # The arm64 gcc should be in ~/llvm-mingw after "make arm64"
+            ~/llvm-mingw/bin/aarch64-w64-mingw32-gcc dll_loader.c -o dll_loader_arm64.exe 
       - uses: actions/upload-artifact@v6
         with:
           name: testing_utilities
           path: |
             ./dll_loader_x64.exe
             ./dll_loader_x86.exe
+            ./dll_loader_arm64.exe
 
-  test:
-    name: Test Binaries on Windows
+  test-x86-x64:
+    name: Test Binaries on Windows (x86 & x64)
     needs: build
     runs-on: windows-latest
     steps:
@@ -107,3 +117,33 @@ jobs:
           .\win86\aacs_info.exe
           echo "Running DLL Loader..."
           .\dll_loader_x86.exe
+  
+  test-arm64:
+    name: Test Binaries on Windows (arm64)
+    needs: build
+    runs-on: windows-11-arm
+    steps:
+      - name: Download Binaries
+        uses: actions/download-artifact@v6
+        with:
+          name: libaacs_libbdplus
+          path: ./binaries
+
+      - name: Download Utilities
+        uses: actions/download-artifact@v6
+        with:
+          name: testing_utilities
+          path: ./utils
+
+      - name: Setup Test Environment
+        run: |
+          copy .\utils\dll_loader_arm64.exe .\binaries\dll_loader_arm64.exe
+          ls -R .\binaries
+
+      - name: Test Win64 (x64)
+        working-directory: ./binaries/
+        run: |
+          echo "Running aacs_info.exe..."
+          .\winarm64\aacs_info.exe
+          echo "Running DLL Loader..."
+          .\dll_loader_arm64.exe

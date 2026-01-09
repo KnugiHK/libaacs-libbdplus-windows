@@ -7,6 +7,8 @@ const wchar_t* get_arch_directory() {
     return L"win64\\";
 #elif defined(_M_IX86) || defined(__i386__)
     return L"win86\\";
+#elif defined(_M_ARM64) || defined(__aarch64__)
+    return L"winarm64\\";
 #else
     return L""; // Fallback to current directory
 #endif
@@ -46,12 +48,13 @@ int test_library(const wchar_t* filename) {
 }
 
 int main() {
-#if defined(_M_AMD64)
+#if defined(_M_AMD64) || defined(__x86_64__)
     printf("Running 64-bit Test Suite\n");
-#else
+#elif defined(_M_IX86) || defined(__i386__)
     printf("Running 32-bit Test Suite\n");
+#elif defined(_M_ARM64) || defined(__aarch64__)
+    printf("Running ARM 64-bit Test Suite\n");
 #endif
-
     const wchar_t* libraries[] = { L"libaacs.dll", L"libbdplus.dll" };
     int count = sizeof(libraries) / sizeof(libraries[0]);
 
