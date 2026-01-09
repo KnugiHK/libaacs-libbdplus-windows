@@ -455,11 +455,12 @@
 <p>To build libaacs &amp; libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:</p>
 <pre><code class="language-bash">sudo apt-get install -y autoconf fig2dev mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext lbzip2 flex bison
 git clone https://github.com/KnugiHK/libaacs-libbdplus-windows &amp;&amp; cd libaacs-libbdplus-windows
-make
+make # This will build both x86 and x64. See below for arm64
 </code></pre>
-<p>To build 32-bit or 64-bit only:</p>
-<pre><code class="language-bash">make 32
-make 64
+<p>To build each architecture individually:</p>
+<pre><code class="language-bash">make x32
+make x64
+make arm64
 </code></pre>
 <p>If the <code>Makefile</code> does not work for you, try to use the <code>build.sh</code> script instead.</p>
 <h2>Building the Installer</h2>
@@ -469,13 +470,18 @@ make 64
 <h2>Testing</h2>
 <p>This repository includes a testing utility, <code>dll_loader.c</code>. To use it, compile the source using <code>x86_64-w64-mingw32-gcc</code> (for 64-bit) or <code>i686-w64-mingw32-gcc</code> (for 32-bit). Once built, run the executable on Windows, ensuring the library files are organized in the following directory structure:</p>
 <pre><code class="language-bash">.
+├── dll_loader_arm64.exe
 ├── dll_loader_x64.exe
 ├── dll_loader_x86.exe
 ├── win64
 │   ├── aacs_info.exe
 │   ├── libaacs.dll
 │   └── libbdplus.dll
-└── win86
+├── win86
+│   ├── aacs_info.exe
+│   ├── libaacs.dll
+│   └── libbdplus.dll
+└── winarm64
     ├── aacs_info.exe
     ├── libaacs.dll
     └── libbdplus.dll
@@ -483,10 +489,10 @@ make 64
 <h2>Verifying Build Integrity</h2>
 <p>To ensure that the binaries provided in the releases were built directly from this source code via GitHub Actions and have not been tampered with, GitHub Artifact Attestations is used. You can verify the authenticity of any <code>.exe</code> or <code>.dll</code> file using the GitHub CLI.</p>
 <h3>Using PowerShell (Windows)</h3>
-<pre><code class="language-powershell">gci &quot;*.exe&quot;, &quot;./win64/*&quot;, &quot;./win86/*&quot; | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
+<pre><code class="language-powershell">gci &quot;*.exe&quot;, &quot;./win64/*&quot;, &quot;./win86/*&quot;, &quot;./winarm64/*&quot; | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
 </code></pre>
 <h3>Using Bash (Linux/WSL/macOS)</h3>
-<pre><code class="language-bash">for file in *.exe ./win64/* ./win86/*; do; gh attestation verify &quot;$file&quot; -R KnugiHK/libaacs-libbdplus-windows ; done
+<pre><code class="language-bash">for file in *.exe ./win64/* ./win86/* ./winarm64/*; do; gh attestation verify &quot;$file&quot; -R KnugiHK/libaacs-libbdplus-windows ; done
 </code></pre>
 <h2>Credit</h2>
 <p>This project is inspired by <a href="https://github.com/KnugiHK/wget-windows">wget-windows</a>, originally created by @webfolderio.</p>
@@ -497,7 +503,7 @@ make 64
         <footer>
             <p>Project maintained by <a href="https://knugi.com/">KnugiHK</a></p>
             <p>Licensed under GPLv3</p>
-            <p><small>Last updated: January 7, 2026</small></p>
+            <p><small>Last updated: January 9, 2026</small></p>
         </footer>
     </div>
 </body>
