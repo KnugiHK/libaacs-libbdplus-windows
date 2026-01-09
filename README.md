@@ -15,10 +15,11 @@ Simply download, run, select your architecture, and install, you'll be up and ru
 
 ### Manual
 
-Once downloaded, you'll find both 64-bit and 32-bit Windows versions of the libraries. Follow these steps to get started:
+Once downloaded, you'll find x86, x64 and arm64 Windows versions of the libraries. Follow these steps to get started:
 
 1. **Download the libraries** from the [Releases](https://github.com/KnugiHK/libaacs-libbdplus-windows/releases) page.
-2. **Place the DLL files** (`libaacs.dll` and `libbdplus.dll`) into `C:\Windows\System32` or `C:\Windows\SysWOW64`. This will make them accessible to all your applications.
+2. **Extract the appropriate architecture**: `win64` for x64, `win86` for x86 and `winarm64` for ARM64.
+3. **Move the DLL files** (`libaacs.dll` and `libbdplus.dll`) to `C:\Windows\System32`. If you are installing x86 binaries on a 64-bit Windows system, place them in `C:\Windows\SysWOW64` instead. This will make them accessible to all applications.
 
 Unlike the libraries provided in external sources (like Mega.nz), these libraries have **all dependencies statically linked**, so you won't need any additional DLLs (like `libgpg-error6-0.dll` or `libgcrypt-20.dll`).
 
