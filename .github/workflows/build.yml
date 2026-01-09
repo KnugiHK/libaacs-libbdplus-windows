@@ -140,7 +140,7 @@ jobs:
           copy .\utils\dll_loader_arm64.exe .\binaries\dll_loader_arm64.exe
           ls -R .\binaries
 
-      - name: Test Win64 (x64)
+      - name: Test WinARM64 (arm64)
         working-directory: ./binaries/
         run: |
           echo "Running aacs_info.exe..."
