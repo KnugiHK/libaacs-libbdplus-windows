@@ -11,6 +11,9 @@ permissions:
   contents: read
   attestations: write
 
+env:
+  TZ: "Asia/Hong_Kong"
+
 jobs:
   build:
     name: Build the Libraries
@@ -22,10 +25,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make pkg-config fig2dev gettext lbzip2 flex bison nsis
-      - name: Build libaacs & libbdplus
-        run: |
           x86_64-w64-mingw32-gcc --version
           i686-w64-mingw32-gcc --version
+          date
+      - name: Build libaacs & libbdplus
+        run: |
           make
           make arm64
       - name: Packing
