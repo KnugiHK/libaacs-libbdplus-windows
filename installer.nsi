@@ -1,7 +1,8 @@
 ; Installer properties
+!define /date VERSION "%Y%m%d"
 Name "libaacs & libbdplus Installer"
-OutFile "libaacs-bdplus.exe"
-InstallDir "$SYSDIR"
+OutFile "libaacs-libbdplus-windows-installer.exe"
+InstallDir "$PROGRAMFILES\libaacs-libbdplus-windows" ; Recommended: Install uninstaller to a folder
 RequestExecutionLevel admin
 
 ; Variables
@@ -14,13 +15,18 @@ Var BITNESS
 
 ; Pages
 !insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
+
+; Uninstaller Pages
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
 
 ; Languages
 !insertmacro MUI_LANGUAGE "English"
 
-; Sections
+; Installation Sections
 Section "32-bit DLLs (x86)" SEC_32BIT
   SetOutPath "$SYSDIR"
   File "win86\libaacs.dll"
@@ -41,6 +47,41 @@ Section "ARM 64-bit DLLs" SEC_ARM64
   File "winarm64\libaacs.dll"
   File "winarm64\libbdplus.dll"
   ${EnableX64FSRedirection}
+SectionEnd
+
+; Hidden Section: to create uninstaller and registry keys
+Section "-Post" 
+  SetOutPath "$INSTDIR"
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+
+  ; Registry keys for Add/Remove Programs
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "DisplayName" "Windows Libraries of libaacs & libbdplus"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "UninstallString" '"$INSTDIR\Uninstall.exe"'
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "QuietUninstallString" '"$INSTDIR\Uninstall.exe" /S'
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "Publisher" "KnugiHK"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "DisplayVersion" "${VERSION}"
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "NoModify" 1
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "NoRepair" 1
+SectionEnd
+
+; Uninstaller Section
+Section "Uninstall"
+  ; Delete DLLs from System32/SysWOW64
+  ${DisableX64FSRedirection}
+  Delete "$SYSDIR\libaacs.dll"
+  Delete "$SYSDIR\libbdplus.dll"
+  ${EnableX64FSRedirection}
+  
+  ; Delete 32-bit versions if they were installed on a 64-bit system
+  Delete "$SYSDIR\libaacs.dll"
+  Delete "$SYSDIR\libbdplus.dll"
+
+  ; Remove uninstaller and folder
+  Delete "$INSTDIR\Uninstall.exe"
+  RMDir "$INSTDIR"
+
+  ; Remove registry keys
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows"
 SectionEnd
 
 ; Functions
