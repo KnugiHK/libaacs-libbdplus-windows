@@ -24,9 +24,9 @@ LLVM_MINGW_PATH := $(HOME)/llvm-mingw
 STATIC_FLAGS := -static-libgcc -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic
 SHARED_LDFLAGS := -no-undefined -avoid-version
 
-.PHONY: all clean 32 64 check-deps directories build-internal
+.PHONY: all clean x32 x64 arm64 check-deps directories build-internal
 
-all: 32 64
+all: x32 x64
 
 # --- Checks & Setup ---
 
@@ -51,7 +51,7 @@ distclean:
 
 # --- Architecture Entry Points ---
 
-32: check-deps
+x32: check-deps
 	@echo '=== Building for 32-bit Windows ==='
 	@mkdir -p build-libaacs-x86
 	@$(MAKE) -C build-libaacs-x86 -f ../Makefile build-internal \
@@ -59,7 +59,7 @@ distclean:
 		STRIP=i686-w64-mingw32-strip \
 		SRC_DIR=..
 
-64: check-deps
+x64: check-deps
 	@echo '=== Building for 64-bit Windows ==='
 	@mkdir -p build-libaacs
 	@$(MAKE) -C build-libaacs -f ../Makefile build-internal \
