@@ -18,7 +18,6 @@ Var BITNESS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
-
 ; Uninstaller Pages
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
@@ -26,7 +25,7 @@ Var BITNESS
 ; Languages
 !insertmacro MUI_LANGUAGE "English"
 
-; Installation Sections
+; ---- Installation Sections ----
 Section "32-bit DLLs (x86)" SEC_32BIT
   SetOutPath "$SYSDIR"
   File "win86\libaacs.dll"
@@ -49,7 +48,7 @@ Section "ARM 64-bit DLLs" SEC_ARM64
   ${EnableX64FSRedirection}
 SectionEnd
 
-; Hidden Section: to create uninstaller and registry keys
+; ---- Hidden Section: to create uninstaller and registry keys ----
 Section "-Post" 
   SetOutPath "$INSTDIR"
   WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -64,7 +63,7 @@ Section "-Post"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows" "NoRepair" 1
 SectionEnd
 
-; Uninstaller Section
+; ---- Uninstaller Section ----
 Section "Uninstall"
   ; Delete DLLs from System32/SysWOW64
   ${DisableX64FSRedirection}
@@ -84,7 +83,7 @@ Section "Uninstall"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\libaacs-libbdplus-windows"
 SectionEnd
 
-; Functions
+; ---- Functions ----
 Function .onInit
   ; Unselect everything
   SectionSetFlags ${SEC_32BIT} 0
