@@ -28,15 +28,31 @@ Section "32-bit DLLs (x86)" SEC_32BIT
 SectionEnd
 
 Section "64-bit DLLs (x64)" SEC_64BIT
+  ${If} ${RunningX64}
+    ${DisableX64FSRedirection}
+  ${EndIf}
+
   SetOutPath "$SYSDIR"
   File "win64\libaacs.dll"
   File "win64\libbdplus.dll"
+
+  ${If} ${RunningX64}
+    ${EnableX64FSRedirection}
+  ${EndIf}
 SectionEnd
 
 Section "ARM 64-bit DLLs" SEC_ARM64
+  ${If} ${IsNativeARM64}
+    ${DisableX64FSRedirection}
+  ${EndIf}
+
   SetOutPath "$SYSDIR"
   File "winarm64\libaacs.dll"
   File "winarm64\libbdplus.dll"
+
+  ${If} ${IsNativeARM64}
+    ${EnableX64FSRedirection}
+  ${EndIf}
 SectionEnd
 
 ; Functions
