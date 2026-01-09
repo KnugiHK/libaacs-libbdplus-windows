@@ -19,7 +19,7 @@ SHELL       := /bin/bash
 DL_DIR      := build-libaacs-dl
 
 # Common Flags
-STATIC_FLAGS := -static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic
+STATIC_FLAGS := -static-libgcc -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic
 SHARED_LDFLAGS := -no-undefined -avoid-version
 
 .PHONY: all clean 32 64 check-deps directories build-internal
