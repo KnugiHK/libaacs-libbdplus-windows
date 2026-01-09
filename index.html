@@ -444,10 +444,11 @@
 <h3>Using Installer</h3>
 <p>Simply download, run, select your architecture, and install, you&#39;ll be up and running in seconds.</p>
 <h3>Manual</h3>
-<p>Once downloaded, you&#39;ll find both 64-bit and 32-bit Windows versions of the libraries. Follow these steps to get started:</p>
+<p>Once downloaded, you&#39;ll find x86, x64 and arm64 Windows versions of the libraries. Follow these steps to get started:</p>
 <ol>
 <li><strong>Download the libraries</strong> from the <a href="https://github.com/KnugiHK/libaacs-libbdplus-windows/releases">Releases</a> page.</li>
-<li><strong>Place the DLL files</strong> (<code>libaacs.dll</code> and <code>libbdplus.dll</code>) into <code>C:\Windows\System32</code> or <code>C:\Windows\SysWOW64</code>. This will make them accessible to all your applications.</li>
+<li><strong>Extract the appropriate architecture</strong>: <code>win64</code> for x64, <code>win86</code> for x86 and <code>winarm64</code> for ARM64.</li>
+<li><strong>Move the DLL files</strong> (<code>libaacs.dll</code> and <code>libbdplus.dll</code>) to <code>C:\Windows\System32</code>. If you are installing x86 binaries on a 64-bit Windows system, place them in <code>C:\Windows\SysWOW64</code> instead. This will make them accessible to all applications.</li>
 </ol>
 <p>Unlike the libraries provided in external sources (like Mega.nz), these libraries have <strong>all dependencies statically linked</strong>, so you won&#39;t need any additional DLLs (like <code>libgpg-error6-0.dll</code> or <code>libgcrypt-20.dll</code>).</p>
 <p>For detailed instruction, refer to <a href="https://forum.doom9.org/showthread.php?p=1886086">this forum post</a> from Doom9.</p>
