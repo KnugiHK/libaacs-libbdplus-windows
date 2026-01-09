@@ -31,15 +31,15 @@ To build libaacs & libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow t
 ```bash
 sudo apt-get install -y autoconf fig2dev mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext lbzip2 flex bison
 git clone https://github.com/KnugiHK/libaacs-libbdplus-windows && cd libaacs-libbdplus-windows
-make
+make # This will build both x86 and x64. See below for arm64
 ```
 
-To build 32-bit or 64-bit only:
+To build each architecture individually:
 ```bash
-make 32
-make 64
+make x32
+make x64
+make arm64
 ```
-
 If the `Makefile` does not work for you, try to use the `build.sh` script instead.
 
 ## Building the Installer
@@ -56,13 +56,18 @@ This repository includes a testing utility, `dll_loader.c`. To use it, compile t
 
 ```bash
 .
+├── dll_loader_arm64.exe
 ├── dll_loader_x64.exe
 ├── dll_loader_x86.exe
 ├── win64
 │   ├── aacs_info.exe
 │   ├── libaacs.dll
 │   └── libbdplus.dll
-└── win86
+├── win86
+│   ├── aacs_info.exe
+│   ├── libaacs.dll
+│   └── libbdplus.dll
+└── winarm64
     ├── aacs_info.exe
     ├── libaacs.dll
     └── libbdplus.dll
@@ -75,13 +80,13 @@ To ensure that the binaries provided in the releases were built directly from th
 ### Using PowerShell (Windows)
 
 ```powershell
-gci "*.exe", "./win64/*", "./win86/*" | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
+gci "*.exe", "./win64/*", "./win86/*", "./winarm64/*" | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
 ```
 
 ### Using Bash (Linux/WSL/macOS)
 
 ```bash
-for file in *.exe ./win64/* ./win86/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
+for file in *.exe ./win64/* ./win86/* ./winarm64/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
 ```
 
 ## Credit
