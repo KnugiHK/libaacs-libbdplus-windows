@@ -30,8 +30,8 @@ jobs:
           date
       - name: Build libaacs & libbdplus
         run: |
-          make
-          make arm64
+          make -j$(nproc)
+          make arm64 -j$(nproc)
       - name: Packing
         run: |
           mkdir ./win64 ./win86 ./winarm64
