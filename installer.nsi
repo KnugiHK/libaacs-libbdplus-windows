@@ -29,15 +29,15 @@ Var BITNESS
 ; ---- Installation Sections ----
 Section "32-bit DLLs (x86)" SEC_32BIT
   SetOutPath "$SYSDIR"
-  File "win86\libaacs.dll"
-  File "win86\libbdplus.dll"
+  File "winx86\libaacs.dll"
+  File "winx86\libbdplus.dll"
 SectionEnd
 
 Section "64-bit DLLs (x64)" SEC_64BIT
   ${DisableX64FSRedirection}
   SetOutPath "$SYSDIR"
-  File "win64\libaacs.dll"
-  File "win64\libbdplus.dll"
+  File "winx64\libaacs.dll"
+  File "winx64\libbdplus.dll"
   ${EnableX64FSRedirection}
 SectionEnd
 

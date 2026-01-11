@@ -21,7 +21,7 @@ Simply download, run, select your architecture, and install, you'll be up and ru
 Once downloaded, you'll find x86, x64 and arm64 Windows versions of the libraries. Follow these steps to get started:
 
 1. **Download the libraries** from the [Releases](https://github.com/KnugiHK/libaacs-libbdplus-windows/releases) page.
-2. **Extract the appropriate architecture**: `win64` for x64, `win86` for x86 and `winarm64` for ARM64.
+2. **Extract the appropriate architecture**: `winx64` for x64, `winx86` for x86 and `winarm64` for ARM64.
 3. **Move the DLL files** (`libaacs.dll` and `libbdplus.dll`) to `C:\Windows\System32`. If you are installing x86 binaries on a 64-bit Windows system, place them in `C:\Windows\SysWOW64` instead. This will make them accessible to all applications.
 
 Unlike the libraries provided in external sources (like Mega.nz), these libraries have **all dependencies statically linked**, so you won't need any additional DLLs (like `libgpg-error6-0.dll` or `libgcrypt-20.dll`).
@@ -48,7 +48,7 @@ If the `Makefile` does not work for you, try to use the `build.sh` script instea
 
 ## Building the Installer
 
-The installer is built using NSIS. To build the installer, place the DLLs to the `win86` and `win64` directories accordingly and run the following command:
+The installer is built using NSIS. To build the installer, place the DLLs to the `winx86` and `winx64` directories accordingly and run the following command:
 
 ```bash
 makensis installer.nsi
@@ -63,11 +63,11 @@ This repository includes a testing utility, `dll_loader.c`. To use it, compile t
 ├── dll_loader_arm64.exe
 ├── dll_loader_x64.exe
 ├── dll_loader_x86.exe
-├── win64
+├── winx64
 │   ├── aacs_info.exe
 │   ├── libaacs.dll
 │   └── libbdplus.dll
-├── win86
+├── winx86
 │   ├── aacs_info.exe
 │   ├── libaacs.dll
 │   └── libbdplus.dll
@@ -84,13 +84,13 @@ To ensure that the binaries provided in the releases were built directly from th
 ### Using PowerShell (Windows)
 
 ```powershell
-gci "*.exe", "./win64/*", "./win86/*", "./winarm64/*" | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
+gci "*.exe", "./winx64/*", "./winx86/*", "./winarm64/*" | % { gh attestation verify $_.FullName -R KnugiHK/libaacs-libbdplus-windows }
 ```
 
 ### Using Bash (Linux/WSL/macOS)
 
 ```bash
-for file in *.exe ./win64/* ./win86/* ./winarm64/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
+for file in *.exe ./winx64/* ./winx86/* ./winarm64/*; do; gh attestation verify "$file" -R KnugiHK/libaacs-libbdplus-windows ; done
 ```
 
 ## Credit

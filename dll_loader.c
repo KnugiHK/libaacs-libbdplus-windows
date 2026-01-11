@@ -4,9 +4,9 @@
 // Helper to get the correct subdirectory based on build architecture
 const wchar_t* get_arch_directory() {
 #if defined(_M_AMD64) || defined(__x86_64__)
-    return L"win64\\";
+    return L"winx64\\";
 #elif defined(_M_IX86) || defined(__i386__)
-    return L"win86\\";
+    return L"winx86\\";
 #elif defined(_M_ARM64) || defined(__aarch64__)
     return L"winarm64\\";
 #else
