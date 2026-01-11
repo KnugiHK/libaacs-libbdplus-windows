@@ -65,6 +65,7 @@ jobs:
             ./win64
             ./win86
             ./winarm64
+            ./LICENSE
       - uses: actions/upload-artifact@v6
         with:
           name: installer
