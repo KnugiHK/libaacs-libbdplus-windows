@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'RELEASE.md'
+      - 'renovate.json'
       - '.github/generate-website.js'
       - '.github/workflows/generate-website.yml'
       - '.github/workflows/renovate.yml'
