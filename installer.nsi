@@ -14,6 +14,7 @@ Var BITNESS
 !include "x64.nsh" ; Required for architecture detection
 
 ; Pages
+!insertmacro MUI_PAGE_LICENSE "LICENSE";
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
