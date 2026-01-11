@@ -8,6 +8,7 @@ on:
       - 'RELEASE.md'
       - '.github/generate-website.js'
       - '.github/workflows/generate-website.yml'
+      - '.github/workflows/renovate.yml'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
