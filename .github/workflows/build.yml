@@ -98,13 +98,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Download Binaries
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: libaacs_libbdplus
           path: ./binaries
 
       - name: Download Utilities
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: testing_utilities
           path: ./utils
@@ -137,13 +137,13 @@ jobs:
     runs-on: windows-11-arm
     steps:
       - name: Download Binaries
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: libaacs_libbdplus
           path: ./binaries
 
       - name: Download Utilities
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: testing_utilities
           path: ./utils
