@@ -475,7 +475,7 @@ const generateHTML = (content) => `
 
         <footer>
             <p>Project maintained by <a href="https://knugi.com/">KnugiHK</a></p>
-            <p>Licensed under GPLv3</p>
+            <p>Licensed under <a href="https://github.com/KnugiHK/libaacs-libbdplus-windows/blob/main/LICENSE" target="_blank">GPLv3</a></p>
             <p><small>Last updated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</small></p>
         </footer>
     </div>
