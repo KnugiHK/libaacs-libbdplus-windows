@@ -67,10 +67,12 @@ SectionEnd
 ; ---- Uninstaller Section ----
 Section "Uninstall"
   ; Delete DLLs from System32/SysWOW64
-  ${DisableX64FSRedirection}
-  Delete "$SYSDIR\libaacs.dll"
-  Delete "$SYSDIR\libbdplus.dll"
-  ${EnableX64FSRedirection}
+  ${If} ${RunningX64}
+    ${DisableX64FSRedirection}
+    Delete "$SYSDIR\libaacs.dll"
+    Delete "$SYSDIR\libbdplus.dll"
+    ${EnableX64FSRedirection}
+  ${EndIf}
   
   ; Delete 32-bit versions if they were installed on a 64-bit system
   Delete "$SYSDIR\libaacs.dll"
