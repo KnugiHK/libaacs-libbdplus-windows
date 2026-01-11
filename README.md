@@ -8,7 +8,7 @@ This repository provides pre-built libraries for **libaacs** and **libbdplus**, 
 This repository provides an automated build process and ready-to-use binaries as a transparent alternative to manual uploads shared online. To supplement existing community resources, we use GitHub Actions and cross-compilation with mingw64 on Ubuntu to offer a verifiable path from source to executable. This 'clean-room' compilation ensures a consistent, auditable result, and we encourage users to review the build scripts for full transparency.
 
 > [!TIP]
-> Binaries for Windows on ARM(64) are available!
+> Binaries for Windows on ARM(64) are now available!
 
 ## How to Use libaacs & libbdplus
 
