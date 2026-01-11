@@ -3,6 +3,11 @@ name: libaacs & libbdplus
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - 'RELEASE.md'
+      - '.github/generate-website.js'
+      - '.github/workflows/generate-website.yml'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
