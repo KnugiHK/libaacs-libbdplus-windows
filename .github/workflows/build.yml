@@ -1,9 +1,10 @@
 name: libaacs & libbdplus
 
 on:
-  create:
-    tags:
-      - v*
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
