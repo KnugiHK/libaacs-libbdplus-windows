@@ -1,35 +1,53 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["Makefile"],
-      "matchStrings": ["GPG_ERROR_VER\\s*:=\\s*(?<currentValue>.*)\\n"],
+      "managerFilePatterns": [
+        "/Makefile/"
+      ],
+      "matchStrings": [
+        "GPG_ERROR_VER\\s*:=\\s*(?<currentValue>.*)\\n"
+      ],
       "depNameTemplate": "gpg/libgpg-error",
       "datasourceTemplate": "github-tags",
       "extractVersionTemplate": "^libgpg-error-(?<version>.+)$"
     },
     {
       "customType": "regex",
-      "fileMatch": ["Makefile"],
-      "matchStrings": ["LIBGCRYPT_VER\\s*:=\\s*(?<currentValue>.*)\\n"],
+      "managerFilePatterns": [
+        "/Makefile/"
+      ],
+      "matchStrings": [
+        "LIBGCRYPT_VER\\s*:=\\s*(?<currentValue>.*)\\n"
+      ],
       "depNameTemplate": "gpg/libgcrypt",
       "datasourceTemplate": "github-tags",
       "extractVersionTemplate": "^libgcrypt-(?<version>.+)$"
     },
     {
       "customType": "regex",
-      "fileMatch": ["Makefile"],
-      "matchStrings": ["LIBAACS_VER\\s*:=\\s*(?<currentValue>.*)\\n"],
+      "managerFilePatterns": [
+        "/Makefile/"
+      ],
+      "matchStrings": [
+        "LIBAACS_VER\\s*:=\\s*(?<currentValue>.*)\\n"
+      ],
       "depNameTemplate": "videolan/libaacs",
       "datasourceTemplate": "gitlab-tags",
       "registryUrlTemplate": "https://code.videolan.org"
     },
     {
       "customType": "regex",
-      "fileMatch": ["Makefile"],
-      "matchStrings": ["LIBBDPLUS_VER\\s*:=\\s*(?<currentValue>.*)\\n"],
+      "managerFilePatterns": [
+        "/Makefile/"
+      ],
+      "matchStrings": [
+        "LIBBDPLUS_VER\\s*:=\\s*(?<currentValue>.*)\\n"
+      ],
       "depNameTemplate": "videolan/libbdplus",
       "datasourceTemplate": "gitlab-tags",
       "registryUrlTemplate": "https://code.videolan.org"
