@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <windows.h>
 
+// Define the signature
+// void aacs_get_version(int *major, int *minor, int *micro)
+// void bdplus_get_version(int *major, int *minor, int *micro)
+typedef void (__cdecl *GetVerFunc)(int*, int*, int*);
+
 // Helper to get the correct subdirectory based on build architecture
 const wchar_t* get_arch_directory() {
 #if defined(_M_AMD64) || defined(__x86_64__)
@@ -14,6 +19,22 @@ const wchar_t* get_arch_directory() {
 #endif
 }
 
+void print_error_message(DWORD errorCode) {
+    LPVOID lpMsgBuf;
+    DWORD size = FormatMessageW(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPWSTR)&lpMsgBuf, 0, NULL
+    );
+
+    if (size > 0) {
+        wprintf(L"System Error %lu: %ls", errorCode, (LPCWSTR)lpMsgBuf);
+        LocalFree(lpMsgBuf);
+    } else {
+        printf("System Error %lu (No description available)\n", errorCode);
+    }
+}
+
 int test_library(const wchar_t* filename) {
     wchar_t fullPath[MAX_PATH];
     const wchar_t* dir = get_arch_directory();
@@ -25,26 +46,32 @@ int test_library(const wchar_t* filename) {
     HMODULE hModule = LoadLibraryW(fullPath);
 
     if (hModule == NULL) {
-        DWORD errorCode = GetLastError();
-        printf("FAILED to load %ls. Error Code: %lu\n", fullPath, errorCode);
-
-        LPVOID lpMsgBuf;
-        FormatMessageW(
-            FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-            NULL, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-            (LPWSTR)&lpMsgBuf, 0, NULL
-        );
-
-        if (lpMsgBuf) {
-            wprintf(L"System Error: %ls", (LPCWSTR)lpMsgBuf);
-            LocalFree(lpMsgBuf);
-        }
-        return 1; // Return failure
+        printf("FAILED to load %ls. Error:\n", fullPath);
+        print_error_message(GetLastError());
+        return 1;
     }
 
-    printf("SUCCESS: Loaded %ls at address %p\n", fullPath, hModule);
+    printf("SUCCESS: Loaded %ls at address %p\n", fullPath, (void*)hModule);
+
+    const char* funcName = NULL;
+    if (wcsstr(filename, L"aacs")) {
+        funcName = "aacs_get_version";
+    } else if (wcsstr(filename, L"bdplus")) {
+        funcName = "bdplus_get_version";
+    }
+    
+    GetVerFunc getVersion = (GetVerFunc)GetProcAddress(hModule, funcName);
+
+    if (getVersion) {
+        int major, minor, micro;
+        getVersion(&major, &minor, &micro);
+        printf("FUNCTION FOUND: %s reported version %d.%d.%d\n", funcName, major, minor, micro);
+    } else {
+        printf("FUNCTION NOT FOUND: Could not find %s\n", funcName);
+    }
+
     FreeLibrary(hModule);
-    return 0; // Return success
+    return 0;
 }
 
 int main() {
@@ -60,7 +87,7 @@ int main() {
 
     for (int i = 0; i < count; i++) {
         if (test_library(libraries[i]) != 0) {
-            printf("\nOne or more libraries failed to load. Exiting with error.\n");
+            printf("\nOne or more tests failed. Exiting.\n");
             return 1; 
         }
     }
