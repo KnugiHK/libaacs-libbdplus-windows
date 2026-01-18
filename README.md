@@ -48,7 +48,7 @@ If the `Makefile` does not work for you, try to use the `build.sh` script instea
 
 ## Building the Installer
 
-The installer is built using NSIS. To build the installer, place the DLLs to the `winx86` and `winx64` directories accordingly and run the following command:
+The installer is built using NSIS. To build the installer, place the DLLs to the `winx86`, `winx64`  and `winarm64` directories accordingly and run the following command:
 
 ```bash
 makensis installer.nsi
