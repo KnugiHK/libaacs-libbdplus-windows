@@ -4,7 +4,7 @@
 
 # --- Versions ---
 GPG_ERROR_VER := 1.59
-LIBGCRYPT_VER := 1.12.0
+LIBGCRYPT_VER := 1.12.1
 LIBAACS_VER   := 0.11.1
 LIBBDPLUS_VER := 0.2.0
 
