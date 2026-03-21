@@ -66,7 +66,7 @@ jobs:
             ./winarm64/*.dll
             ./winarm64/*.exe
             ./libaacs-libbdplus-installer.exe
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: libaacs_libbdplus
           path: |
@@ -74,7 +74,7 @@ jobs:
             ./winx86
             ./winarm64
             ./LICENSE
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: installer
           path: ./libaacs-libbdplus-installer.exe
@@ -84,7 +84,7 @@ jobs:
             i686-w64-mingw32-gcc dll_loader.c -o dll_loader_x86.exe
             # The arm64 gcc should be in ~/llvm-mingw after "make arm64"
             ~/llvm-mingw/bin/aarch64-w64-mingw32-gcc dll_loader.c -o dll_loader_arm64.exe 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: testing_utilities
           path: |
