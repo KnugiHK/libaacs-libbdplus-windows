@@ -77,6 +77,8 @@ This repository includes a testing utility, `dll_loader.c`. To use it, compile t
     └── libbdplus.dll
 ```
 
+The testing utility validates that the libraries can be dynamically linked and that functions like `aacs_get_version` are correctly exported. This provides a baseline confirmation that the libraries are ready to be loaded by external applications.
+
 ## Verifying Build Integrity
 
 To ensure that the binaries provided in the releases were built directly from this source code via GitHub Actions and have not been tampered with, GitHub Artifact Attestations is used. You can verify the authenticity of any `.exe` or `.dll` file using the GitHub CLI.
