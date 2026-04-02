@@ -2,8 +2,14 @@
 !define /date VERSION "%Y%m%d"
 Name "libaacs & libbdplus Installer"
 OutFile "libaacs-libbdplus-installer.exe"
-InstallDir "$PROGRAMFILES\libaacs-libbdplus-windows" ; Recommended: Install uninstaller to a folder
+InstallDir "$PROGRAMFILES\libaacs-libbdplus-windows"
 RequestExecutionLevel admin
+BrandingText "libaacs - libbdplus Windows Installer"
+!define MUI_FINISHPAGE_LINK "Visit GitHub"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://github.com/KnugiHK/libaacs-libbdplus-windows"
+!define MUI_WELCOMEPAGE_TITLE "Welcome to the libaacs - libbdplus Setup"
+!define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the installation of the AACS and BD+ libraries for Windows.$\r$\n$\r$\nClick Next to continue."
+!define MUI_FINISHPAGE_NOAUTOCLOSE
 
 ; Variables
 Var BITNESS
@@ -14,6 +20,7 @@ Var BITNESS
 !include "x64.nsh" ; Required for architecture detection
 
 ; Pages
+!insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "LICENSE";
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
@@ -22,6 +29,7 @@ Var BITNESS
 ; Uninstaller Pages
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
 
 ; Languages
 !insertmacro MUI_LANGUAGE "English"
