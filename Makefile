@@ -3,7 +3,7 @@
 # March 03, 2025
 
 # --- Versions ---
-GPG_ERROR_VER := 1.59
+GPG_ERROR_VER := 1.61
 LIBGCRYPT_VER := 1.12.2
 LIBAACS_VER   := 0.11.1
 LIBBDPLUS_VER := 0.2.0
