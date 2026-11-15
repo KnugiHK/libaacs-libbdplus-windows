@@ -458,7 +458,7 @@
 <p>For detailed instruction, refer to <a href="https://forum.doom9.org/showthread.php?p=1886086">this forum post</a> from Doom9.</p>
 <h2>Building libaacs &amp; libbdplus Locally</h2>
 <p>To build libaacs &amp; libbdplus for Windows on WSL 1 or 2 (Debian/Ubuntu), follow these steps:</p>
-<pre><code class="language-bash">sudo apt-get install -y autoconf fig2dev mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext lbzip2 flex bison
+<pre><code class="language-bash">sudo apt-get install -y autoconf automake libtool fig2dev mingw-w64 mingw-w64-tools mingw-w64-i686-dev gcc make m4 pkg-config gettext lbzip2 flex bison
 git clone https://github.com/KnugiHK/libaacs-libbdplus-windows &amp;&amp; cd libaacs-libbdplus-windows
 make # This will build both x86 and x64. See below for arm64
 </code></pre>
@@ -508,7 +508,7 @@ make arm64
         <footer>
             <p>Project maintained by <a href="https://knugi.com/">KnugiHK</a></p>
             <p>Licensed under <a href="https://github.com/KnugiHK/libaacs-libbdplus-windows/blob/main/LICENSE" target="_blank">GPLv3</a></p>
-            <p><small>Last updated: July 18, 2026</small></p>
+            <p><small>Last updated: November 15, 2026</small></p>
         </footer>
     </div>
 </body>
