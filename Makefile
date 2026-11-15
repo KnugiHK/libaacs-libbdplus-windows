@@ -31,9 +31,9 @@ all: x32 x64
 # --- Checks & Setup ---
 
 check-deps:
-	@which fig2dev > /dev/null || (echo 'Error: fig2dev must be installed' && exit 1)
-	@which flex > /dev/null || (echo 'Error: flex must be installed' && exit 1)
-	@which wget > /dev/null || (echo 'Error: wget must be installed' && exit 1)
+	@for tool in fig2dev flex bison wget autoconf automake libtool m4 pkg-config gettext; do \
+		which $$tool > /dev/null || (echo "Error: $$tool must be installed" && exit 1); \
+	done
 	@mkdir -p $(DL_DIR)
 
 $(LLVM_MINGW_PATH)/bin/aarch64-w64-mingw32-gcc:
