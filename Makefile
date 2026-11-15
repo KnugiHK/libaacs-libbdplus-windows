@@ -82,6 +82,7 @@ arm64: $(LLVM_MINGW_PATH)/bin/aarch64-w64-mingw32-gcc check-deps
 # --- Internal Build Logic (Runs inside build dir) ---
 
 INSTALL_PATH := $(shell pwd)/install
+OBJDUMP      := $(subst strip,objdump,$(STRIP))
 
 # Targets for final DLLs
 build-internal: libaacs libbdplus
@@ -118,6 +119,11 @@ libaacs: $(INSTALL_PATH)/lib/libgcrypt.a
 		$(MAKE) libaacs_la_LDFLAGS="$(SHARED_LDFLAGS)" && \
 		$(MAKE) install
 	$(STRIP) "$(INSTALL_PATH)/bin/libaacs.dll"
+	$(STRIP) "$(INSTALL_PATH)/bin/aacs_info.exe"
+	@echo '-> Verifying aacs_info.exe has no unexpected dynamic dependencies...'
+	@if $(OBJDUMP) -p "$(INSTALL_PATH)/bin/aacs_info.exe" | grep -qiE 'DLL Name: lib(mingw|gcc|winpthread|gcrypt|gpg-error)'; then \
+		echo 'Error: aacs_info.exe dynamically depends on a library that should be statically linked. Check the LDFLAGS.' && exit 1; \
+	fi
 
 # libbdplus (Depends on gcrypt)
 libbdplus: $(INSTALL_PATH)/lib/libgcrypt.a
