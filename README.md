@@ -76,7 +76,7 @@ This repository includes a testing utility, `dll_loader.c`. To use it, compile t
     └── libbdplus.dll
 ```
 
-The testing utility validates that the libraries can be dynamically linked and that functions like `aacs_get_version` are correctly exported. This provides a baseline confirmation that the libraries are ready to be loaded by external applications.
+The testing utility validates that the libraries can be dynamically linked, that functions like `aacs_get_version` are correctly exported, and that the statically linked crypto subsystem (libgcrypt) initializes correctly at runtime by exercising `aacs_init()`/`bdplus_init()`. This provides a baseline confirmation that the libraries are ready to be loaded by external applications.
 
 ## Verifying Build Integrity
 
