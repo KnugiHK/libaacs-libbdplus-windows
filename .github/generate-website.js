@@ -6,32 +6,6 @@ const path = require('path');
 fs.ensureDirSync('docs');
 
 const readmeContent = fs.readFileSync('README.md', 'utf8');
-const renderer = new marked.Renderer();
-const originalBlockquote = renderer.blockquote.bind(renderer);
-
-renderer.blockquote = function(quote) {
-    const alertMatch = quote.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/i);
-    
-    if (alertMatch) {
-        const alertType = alertMatch[1].toLowerCase();
-        const content = quote.replace(/^\[!.*?\]\s*/i, '');
-        
-        const icons = {
-            note: '📘',
-            tip: '💡',
-            important: '❗',
-            warning: '⚠️',
-            caution: '🚨'
-        };
-        
-        return `<div class="markdown-alert markdown-alert-${alertType}">
-                    <div class="markdown-alert-title">${icons[alertType]} ${alertType.toUpperCase()}</div>
-                    ${content}
-                </div>`;
-    }
-    
-    return originalBlockquote(quote);
-};
 
 // Generate HTML template
 const generateHTML = (content) => `
@@ -349,10 +323,10 @@ const generateHTML = (content) => `
 
 // Remove the first h1 heading
 const cleanReadme = readmeContent.replace(/^#\s+.+([\r\n]|$)/m, "");
-const htmlContent = marked.use(markedAlert()).parse(cleanReadme, {
+marked.use(markedAlert());
+const htmlContent = marked.parse(cleanReadme, {
   gfm: true,
-  breaks: true,
-  renderer: new marked.Renderer()
+  breaks: true
 });
 const finalHTML = generateHTML(htmlContent);
 fs.writeFileSync('docs/index.html', finalHTML);
