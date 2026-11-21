@@ -59,6 +59,7 @@ jobs:
       - name: Make Installer
         run: makensis installer.nsi
       - name: Generate artifact attestation
+        if: github.ref_type == 'tag'
         uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
