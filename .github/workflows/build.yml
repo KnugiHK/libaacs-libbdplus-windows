@@ -16,9 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: read
-  attestations: write
 
 env:
   TZ: "Asia/Hong_Kong"
@@ -27,6 +25,10 @@ jobs:
   build:
     name: Build the Libraries
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
     steps:
       - uses: actions/checkout@v7
         name: Checkout project
@@ -81,10 +83,10 @@ jobs:
           path: ./libaacs-libbdplus-installer.exe
       - name: Build Debug & Testing
         run: |
-            x86_64-w64-mingw32-gcc dll_loader.c -o dll_loader_x64.exe
-            i686-w64-mingw32-gcc dll_loader.c -o dll_loader_x86.exe
-            # The arm64 gcc should be in ~/llvm-mingw after "make arm64"
-            ~/llvm-mingw/bin/aarch64-w64-mingw32-gcc dll_loader.c -o dll_loader_arm64.exe 
+          x86_64-w64-mingw32-gcc dll_loader.c -o dll_loader_x64.exe
+          i686-w64-mingw32-gcc dll_loader.c -o dll_loader_x86.exe
+          # The arm64 gcc should be in ~/llvm-mingw after "make arm64"
+          ~/llvm-mingw/bin/aarch64-w64-mingw32-gcc dll_loader.c -o dll_loader_arm64.exe
       - uses: actions/upload-artifact@v7
         with:
           name: testing_utilities
@@ -131,7 +133,7 @@ jobs:
           .\winx86\aacs_info.exe
           echo "Running DLL Loader..."
           .\dll_loader_x86.exe
-  
+
   test-arm64:
     name: Test Binaries on Windows arm64
     needs: build
