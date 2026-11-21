@@ -3,6 +3,7 @@ name: libaacs & libbdplus
 on:
   push:
     branches: [ main ]
+    tags: [ '[0-9]*' ]
     paths-ignore:
       - 'README.md'
       - 'RELEASE.md'
